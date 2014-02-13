@@ -18,11 +18,11 @@
     float updateInterval;
     NSInteger currentLevel;
     NSTimer *gameTimer;
+    NSTimer *animationTimer;
 }
 
 @property (nonatomic, strong) MSMegaStackGameboard *gameboard;
-@property (nonatomic, strong) NSMutableArray *blocks;
-
+@property (nonatomic, strong) MSBlock *targetBlock;
 
 @end
 
@@ -50,9 +50,9 @@
     gameStarted = NO;
     userInteractionEnabled = NO;
     levelUp = NO;
-    updateInterval = 0.2f;
+    updateInterval = INIT_MOVING_SPEED;
     currentLevel = 0;
-    _blocks = [[NSMutableArray alloc]init];
+    _targetBlock = nil;
 }
 
 - (void)startGame
@@ -60,9 +60,8 @@
     if (gameStarted) return;
 
     NSInteger length = 2 * (((self.gameboard.numberOfRows - currentLevel)/(float)self.gameboard.numberOfRows) + 0.1) + 1;
-    MSBlock *initBlock = [[MSBlock alloc]initWithRow:currentLevel++ column:self.gameboard.numberOfColumns/2 - length/2 + 1 length:length gameboard:self.gameboard];
+    self.targetBlock = [[MSBlock alloc]initWithRow:currentLevel++ column:self.gameboard.numberOfColumns/2 - length/2 + 1 length:length color:[UIColor blueColor] gameboard:self.gameboard];
 
-    [self.blocks addObject:initBlock];
     
     gameStarted = YES;
     userInteractionEnabled = YES;
@@ -76,8 +75,8 @@
 - (void)resetGame
 {
     [gameTimer invalidate];
+    [animationTimer invalidate];
     [self.gameboard reset];
-    [self.blocks removeAllObjects];
     [self initSetup];
 }
 
@@ -101,7 +100,8 @@
         }
         
         NSInteger length = 2 * (((self.gameboard.numberOfRows - currentLevel)/(float)self.gameboard.numberOfRows) + 0.1) + 1;
-        [self.blocks addObject:[[MSBlock alloc]initWithRow:currentLevel++ column:self.gameboard.numberOfColumns/2 - length/2 + 1 length:length gameboard:self.gameboard]];
+        self.targetBlock = [[MSBlock alloc]initWithRow:currentLevel++ column:self.gameboard.numberOfColumns/2 - length/2 + 1 length:length color:[UIColor blueColor] gameboard:self.gameboard];
+        
         userInteractionEnabled = YES;
         
         gameTimer = [NSTimer scheduledTimerWithTimeInterval:timer.timeInterval * 0.9
@@ -111,28 +111,43 @@
                                                     repeats:YES];
     }
     
-    for (MSBlock *block in self.blocks) {
-        if ([block isInActiveState]) [block update];
-    }
-    
-    for (MSBlock *block in self.blocks) {
-        if ([block isInActiveState]) [block draw];
+    if (self.targetBlock.isInActiveState) {
+        [self.targetBlock update];
+        [self.targetBlock draw];
     }
 
+}
+
+- (void)animation:(NSTimer *)timer
+{
+    if (self.targetBlock.isDead) {
+        [timer invalidate];
+        levelUp = YES;
+    } else {
+        [self.targetBlock fall];
+    }
 }
 
 -(void)handleUserAction
 {
     if (!gameStarted || !userInteractionEnabled) return;
     
-    for (MSBlock *block in self.blocks) {
-        if ([block isInActiveState]) {
-            [block stop];
-            userInteractionEnabled = NO;
-            levelUp = YES;
+    if (self.targetBlock.isInActiveState) {
+        
+        if ([self.targetBlock setToFallingState]) {
+            
+            animationTimer = [NSTimer scheduledTimerWithTimeInterval:updateInterval
+                                                              target:self
+                                                            selector:@selector(animation:)
+                                                            userInfo:nil
+                                                             repeats:YES];
         }
+        else {
+            gameIsOver = YES;
+        }
+        userInteractionEnabled = NO;
     }
-    
+
 }
 
 @end

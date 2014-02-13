@@ -14,17 +14,21 @@
 @property (nonatomic, readonly) NSInteger row;
 @property (nonatomic, readonly) NSInteger column;
 @property (nonatomic, readonly) NSInteger length;
+@property (nonatomic, readonly) UIColor *color;
 
 @property (nonatomic, readonly) BOOL isInActiveState;
+@property (nonatomic, readonly) BOOL isDead;
 
 - (instancetype)initWithRow:(NSInteger)row
                      column:(NSInteger)column
                      length:(NSInteger)length
+                      color:(UIColor *)color
                   gameboard:(MSMegaStackGameboard *)gameboard;
 
+- (BOOL)setToFallingState;
 - (void)update;
 - (void)draw;
-- (void)stop;
+- (void)fall;
 
 
 @end

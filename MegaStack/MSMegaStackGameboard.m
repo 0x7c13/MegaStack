@@ -38,6 +38,7 @@
         // set actual frame
         _gameboardFrame = CGRectMake(GAME_BOARD_LINE_WIDTH / 2.0, GAME_BOARD_LINE_WIDTH / 2.0, frame.size.width - GAME_BOARD_LINE_WIDTH, frame.size.height - GAME_BOARD_LINE_WIDTH);
         
+        // init display
         for (int rowIndex = 0; rowIndex < numberOfRows; rowIndex++) {
             NSMutableArray *columns = [[NSMutableArray alloc]init];
             for (int columnIndex = 0; columnIndex < numberOfColumns; columnIndex++) {
@@ -90,24 +91,16 @@
 {
     // check for bounds
     if (rowIndex >= self.numberOfRows || columnIndex >= self.numberOfColumns || rowIndex < 0 || columnIndex < 0) {
-        NSLog(@"Cannot draw block at (%d, %d): row index or column index out of bounds", rowIndex, columnIndex);
+        NSLog(@"Cannot draw block at (%d, %d): row index or column index out of bounds", (int)rowIndex, (int)columnIndex);
         return;
     }
     
-    /*
     // check for existence
-    NSInteger tag = [NSString stringWithFormat:@"%d%d", (rowIndex + 1)*(columnIndex + 1), (columnIndex + 1)].integerValue;
-    if([self viewWithTag:tag]) {
-        NSLog(@"Cannot draw block at (%d, %d): block already exists", rowIndex, columnIndex);
+    if([self blockUnitExistsAtRow:rowIndex column:columnIndex]) {
+        NSLog(@"Cannot draw block at (%d, %d): block already exists", (int)rowIndex, (int)columnIndex);
         return;
     }
     
-    UIView *newBlock = [[UIView alloc]initWithFrame:CGRectMake((self.gameboardFrame.size.width / self.numberOfColumns) * columnIndex + GAME_BOARD_LINE_WIDTH, (self.gameboardFrame.size.height / self.numberOfRows) * (self.numberOfRows - rowIndex - 1) + GAME_BOARD_LINE_WIDTH, self.gameboardFrame.size.width / self.numberOfColumns - GAME_BOARD_LINE_WIDTH, self.gameboardFrame.size.height / self.numberOfRows - GAME_BOARD_LINE_WIDTH)];
-    newBlock.backgroundColor = color;
-    newBlock.tag = tag;
-    
-    [self addSubview:newBlock];
-     */
     ((UIView *)self.display[rowIndex][columnIndex]).backgroundColor = color;
 }
 
@@ -115,21 +108,29 @@
 {
     // check for bounds
     if (rowIndex >= self.numberOfRows || columnIndex >= self.numberOfColumns || rowIndex < 0 || columnIndex < 0) {
-        NSLog(@"Cannot remove block at (%d, %d): row index or column index out of bounds", rowIndex, columnIndex);
+        NSLog(@"Cannot remove block at (%d, %d): row index or column index out of bounds", (int)rowIndex, (int)columnIndex);
         return;
     }
     
-    /*
-    NSInteger tag = [NSString stringWithFormat:@"%d%d", (rowIndex + 1)*(columnIndex + 1), (columnIndex + 1)].integerValue;
-    UIView *targetBlock = [self viewWithTag:tag];
-    if(targetBlock) {
-        [targetBlock removeFromSuperview];
-    } else {
-        NSLog(@"Cannot remove block at (%d, %d): block doesn't exists", rowIndex, columnIndex);
+    // check for existence
+    if(![self blockUnitExistsAtRow:rowIndex column:columnIndex]) {
+        NSLog(@"Cannot remove block at (%d, %d): block doesn't exists", (int)rowIndex, (int)columnIndex);
+        return;
     }
-     */
     
     ((UIView *)self.display[rowIndex][columnIndex]).backgroundColor = [UIColor clearColor];
+}
+
+- (BOOL)blockUnitExistsAtRow:(NSInteger)rowIndex
+                      column:(NSInteger)columnIndex
+{
+    // check for bounds
+    if (rowIndex >= self.numberOfRows || columnIndex >= self.numberOfColumns || rowIndex < 0 || columnIndex < 0) {
+        NSLog(@"Blockunit doesn't exist at (%d, %d): row index or column index out of bounds", (int)rowIndex, (int)columnIndex);
+        return NO;
+    }
+    
+    return !(((UIView *)self.display[rowIndex][columnIndex]).backgroundColor == [UIColor clearColor]);
 }
 
 - (void)reset

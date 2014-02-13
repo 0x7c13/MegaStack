@@ -13,7 +13,7 @@
 @interface MSGameViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *gameboardView;
-@property (strong, nonatomic) MSMegaStackGamebrain *gameBrain;
+@property (strong, nonatomic) MSMegaStackGamebrain *gamebrain;
 
 
 @end
@@ -34,9 +34,11 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 
+    [self setNeedsStatusBarAppearanceUpdate];
+    
     MSMegaStackGameboard *gameboard = [[MSMegaStackGameboard alloc]initWithFrame:self.gameboardView.frame rows:11 columns:7 gameboardColor:[UIColor grayColor]];
     [self.view addSubview:gameboard];
-    _gameBrain = [[MSMegaStackGamebrain alloc] initWithGameboard:gameboard];
+    _gamebrain = [[MSMegaStackGamebrain alloc] initWithGameboard:gameboard];
     
 }
 
@@ -48,11 +50,15 @@
 
 
 - (IBAction)gameStartButtonPressed:(id)sender {
-    [self.gameBrain startGame];
+    [self.gamebrain startGame];
 }
 
 - (IBAction)resetButtonPressed:(id)sender {
-    [self.gameBrain resetGame];
+    [self.gamebrain resetGame];
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
 }
 
 

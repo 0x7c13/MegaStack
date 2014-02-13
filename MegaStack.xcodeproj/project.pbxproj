@@ -16,13 +16,15 @@
 		F73F6D3A18AC586B00734B00 /* MSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F73F6D3918AC586B00734B00 /* MSAppDelegate.m */; };
 		F73F6D3D18AC586B00734B00 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F73F6D3B18AC586B00734B00 /* Main_iPhone.storyboard */; };
 		F73F6D4018AC586B00734B00 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F73F6D3E18AC586B00734B00 /* Main_iPad.storyboard */; };
-		F73F6D4318AC586B00734B00 /* MSHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F73F6D4218AC586B00734B00 /* MSHomeViewController.m */; };
 		F73F6D4518AC586B00734B00 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F73F6D4418AC586B00734B00 /* Images.xcassets */; };
 		F73F6D4C18AC586B00734B00 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F73F6D4B18AC586B00734B00 /* XCTest.framework */; };
 		F73F6D4D18AC586B00734B00 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F73F6D2918AC586B00734B00 /* Foundation.framework */; };
 		F73F6D4E18AC586B00734B00 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F73F6D2D18AC586B00734B00 /* UIKit.framework */; };
 		F73F6D5618AC586B00734B00 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F73F6D5418AC586B00734B00 /* InfoPlist.strings */; };
 		F73F6D5818AC586B00734B00 /* MegaStackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F73F6D5718AC586B00734B00 /* MegaStackTests.m */; };
+		F758D2B418AD5AA8005247EF /* TestFlightSDK2 in Resources */ = {isa = PBXBuildFile; fileRef = F758D2B318AD5AA8005247EF /* TestFlightSDK2 */; };
+		F758D2B618AD5B1E005247EF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F758D2B518AD5B1E005247EF /* libz.dylib */; };
+		F758D2B818AD5B33005247EF /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F758D2B718AD5B33005247EF /* libTestFlight.a */; };
 		F7B05F1718AC599600E904BE /* MSGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B05F1618AC599600E904BE /* MSGameViewController.m */; };
 		F7B05F1A18AC5A0900E904BE /* MSMegaStackGameboard.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B05F1918AC5A0900E904BE /* MSMegaStackGameboard.m */; };
 		F7B05F1D18AC742100E904BE /* MSMegaStackGamebrain.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B05F1C18AC742100E904BE /* MSMegaStackGamebrain.m */; };
@@ -53,14 +55,15 @@
 		F73F6D3918AC586B00734B00 /* MSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAppDelegate.m; sourceTree = "<group>"; };
 		F73F6D3C18AC586B00734B00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		F73F6D3F18AC586B00734B00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		F73F6D4118AC586B00734B00 /* MSHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSHomeViewController.h; sourceTree = "<group>"; };
-		F73F6D4218AC586B00734B00 /* MSHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSHomeViewController.m; sourceTree = "<group>"; };
 		F73F6D4418AC586B00734B00 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F73F6D4A18AC586B00734B00 /* MegaStackTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MegaStackTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F73F6D4B18AC586B00734B00 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		F73F6D5318AC586B00734B00 /* MegaStackTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MegaStackTests-Info.plist"; sourceTree = "<group>"; };
 		F73F6D5518AC586B00734B00 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F73F6D5718AC586B00734B00 /* MegaStackTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MegaStackTests.m; sourceTree = "<group>"; };
+		F758D2B318AD5AA8005247EF /* TestFlightSDK2 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TestFlightSDK2; sourceTree = "<group>"; };
+		F758D2B518AD5B1E005247EF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		F758D2B718AD5B33005247EF /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = MegaStack/TestFlightSDK2/libTestFlight.a; sourceTree = "<group>"; };
 		F7B05F1518AC599600E904BE /* MSGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGameViewController.h; sourceTree = "<group>"; };
 		F7B05F1618AC599600E904BE /* MSGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSGameViewController.m; sourceTree = "<group>"; };
 		F7B05F1818AC5A0900E904BE /* MSMegaStackGameboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMegaStackGameboard.h; sourceTree = "<group>"; };
@@ -74,6 +77,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F758D2B818AD5B33005247EF /* libTestFlight.a in Frameworks */,
+				F758D2B618AD5B1E005247EF /* libz.dylib in Frameworks */,
 				F73F6D2C18AC586B00734B00 /* CoreGraphics.framework in Frameworks */,
 				F73F6D2E18AC586B00734B00 /* UIKit.framework in Frameworks */,
 				F73F6D2A18AC586B00734B00 /* Foundation.framework in Frameworks */,
@@ -115,6 +120,8 @@
 		F73F6D2818AC586B00734B00 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F758D2B718AD5B33005247EF /* libTestFlight.a */,
+				F758D2B518AD5B1E005247EF /* libz.dylib */,
 				F73F6D2918AC586B00734B00 /* Foundation.framework */,
 				F73F6D2B18AC586B00734B00 /* CoreGraphics.framework */,
 				F73F6D2D18AC586B00734B00 /* UIKit.framework */,
@@ -138,6 +145,7 @@
 		F73F6D3018AC586B00734B00 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F758D2B318AD5AA8005247EF /* TestFlightSDK2 */,
 				F73F6D3818AC586B00734B00 /* MSAppDelegate.h */,
 				F73F6D3918AC586B00734B00 /* MSAppDelegate.m */,
 				F73F6D3118AC586B00734B00 /* MegaStack-Info.plist */,
@@ -182,8 +190,6 @@
 		F7B05F1318AC58E200E904BE /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				F73F6D4118AC586B00734B00 /* MSHomeViewController.h */,
-				F73F6D4218AC586B00734B00 /* MSHomeViewController.m */,
 				F7B05F1518AC599600E904BE /* MSGameViewController.h */,
 				F7B05F1618AC599600E904BE /* MSGameViewController.m */,
 			);
@@ -277,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F73F6D4018AC586B00734B00 /* Main_iPad.storyboard in Resources */,
+				F758D2B418AD5AA8005247EF /* TestFlightSDK2 in Resources */,
 				F73F6D4518AC586B00734B00 /* Images.xcassets in Resources */,
 				F73F6D3D18AC586B00734B00 /* Main_iPhone.storyboard in Resources */,
 				F73F6D3418AC586B00734B00 /* InfoPlist.strings in Resources */,
@@ -301,7 +308,6 @@
 				F73F6D3A18AC586B00734B00 /* MSAppDelegate.m in Sources */,
 				F710CF3118AC5BA200640D00 /* MSBlock.m in Sources */,
 				F7B05F1A18AC5A0900E904BE /* MSMegaStackGameboard.m in Sources */,
-				F73F6D4318AC586B00734B00 /* MSHomeViewController.m in Sources */,
 				F7B05F1D18AC742100E904BE /* MSMegaStackGamebrain.m in Sources */,
 				F7B05F1718AC599600E904BE /* MSGameViewController.m in Sources */,
 				F73F6D3618AC586B00734B00 /* main.m in Sources */,
@@ -379,7 +385,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -397,6 +403,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "9BF4F9DD-DDA1-44BD-98DE-A224A8AC69FA";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -419,7 +426,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -430,6 +437,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PROVISIONING_PROFILE = "9BF4F9DD-DDA1-44BD-98DE-A224A8AC69FA";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -444,6 +452,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MegaStack/MegaStack-Prefix.pch";
 				INFOPLIST_FILE = "MegaStack/MegaStack-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/FlyinGeek/Developer/MegaStack/MegaStack/TestFlightSDK2,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -457,6 +469,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MegaStack/MegaStack-Prefix.pch";
 				INFOPLIST_FILE = "MegaStack/MegaStack-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/FlyinGeek/Developer/MegaStack/MegaStack/TestFlightSDK2,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

@@ -24,12 +24,16 @@
                       columns:(NSInteger)numberOfColumns
                gameboardColor:(UIColor *)color;
 
+
 - (void)drawBlockUnitAtRow:(NSInteger)rowIndex
                 column:(NSInteger)columnIndex
              withColor:(UIColor *)color;
 
 - (void)removeBlockUnitAtRow:(NSInteger)rowIndex
                   column:(NSInteger)columnIndex;
+
+- (BOOL)blockUnitExistsAtRow:(NSInteger)rowIndex
+                           column:(NSInteger)columnIndex;
 
 - (void)reset;
 

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TestFlightSDK2/TestFlight.h"
 
 @interface MSAppDelegate : UIResponder <UIApplicationDelegate>
 

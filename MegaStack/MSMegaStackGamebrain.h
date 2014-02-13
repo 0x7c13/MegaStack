@@ -10,6 +10,7 @@
 #import "MSMegaStackGameboard.h"
 
 #define INIT_BLOCK_LENGTH 3
+#define INIT_MOVING_SPEED 0.2f
 
 @interface MSMegaStackGamebrain : NSObject
 
