@@ -9,12 +9,8 @@
 #import "MSMegaStackGamebrain.h"
 #import "MSBlock.h"
 
-struct POINTER {
-    NSInteger rowIndex;
-    NSInteger columnIndex;
-}pointer;
-
 @interface MSMegaStackGamebrain () {
+    
     BOOL gameIsOver;
     BOOL gameStarted;
     BOOL userInteractionEnabled;
@@ -26,6 +22,7 @@ struct POINTER {
 
 @property (nonatomic, strong) MSMegaStackGameboard *gameboard;
 @property (nonatomic, strong) NSMutableArray *blocks;
+
 
 @end
 
@@ -54,8 +51,6 @@ struct POINTER {
     userInteractionEnabled = NO;
     levelUp = NO;
     updateInterval = 0.2f;
-    pointer.columnIndex = 0;
-    pointer.rowIndex = 0;
     currentLevel = 0;
     _blocks = [[NSMutableArray alloc]init];
 }
