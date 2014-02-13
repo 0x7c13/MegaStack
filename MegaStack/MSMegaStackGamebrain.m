@@ -59,8 +59,8 @@
 {
     if (gameStarted) return;
 
-    NSInteger length = 2 * (((self.gameboard.numberOfRows - currentLevel)/(float)self.gameboard.numberOfRows) + 0.1) + 1;
-    self.targetBlock = [[MSBlock alloc]initWithRow:currentLevel++ column:self.gameboard.numberOfColumns/2 - length/2 + 1 length:length color:[UIColor blueColor] gameboard:self.gameboard];
+    NSInteger length = INIT_BLOCK_LENGTH;
+    self.targetBlock = [[MSBlock alloc]initWithRow:currentLevel++ column:self.gameboard.numberOfColumns/2 - length/2 length:length color:[UIColor blueColor] gameboard:self.gameboard];
 
     
     gameStarted = YES;
