@@ -8,11 +8,12 @@
 
 #import "MSGameViewController.h"
 #import "MSMegaStackGameBoard.h"
+#import "MSMegaStackGamebrain.h"
 
 @interface MSGameViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *gameboardView;
-@property (strong, nonatomic) MSMegaStackGameboard *gameboard;
+@property (strong, nonatomic) MSMegaStackGamebrain *gameBrain;
 
 
 @end
@@ -33,17 +34,9 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 
-    _gameboard = [[MSMegaStackGameboard alloc]initWithFrame:self.gameboardView.frame rows:11 columns:7 gameboardColor:[UIColor grayColor]];
-    [self.view addSubview:self.gameboard];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    [self.gameboard drawBlockAtRow:7 column:3 withColor:[UIColor blueColor]];
-    [self.gameboard removeBlockAtRow:1 column:1];
-    //[self.gameboard removeBlockAtRow:7 column:3];
+    MSMegaStackGameboard *gameboard = [[MSMegaStackGameboard alloc]initWithFrame:self.gameboardView.frame rows:11 columns:7 gameboardColor:[UIColor grayColor]];
+    [self.view addSubview:gameboard];
+    _gameBrain = [[MSMegaStackGamebrain alloc] initWithGameboard:gameboard];
     
 }
 
@@ -52,5 +45,15 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+- (IBAction)gameStartButtonPressed:(id)sender {
+    [self.gameBrain startGame];
+}
+
+- (IBAction)resetButtonPressed:(id)sender {
+    [self.gameBrain resetGame];
+}
+
 
 @end

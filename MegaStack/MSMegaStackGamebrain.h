@@ -7,7 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MSMegaStackGameboard.h"
 
 @interface MSMegaStackGamebrain : NSObject
+
+- (instancetype)initWithGameboard:(MSMegaStackGameboard *)gameboard;
+
+- (void)startGame;
+- (void)resetGame;
+
+- (void)handleUserAction;
 
 @end
