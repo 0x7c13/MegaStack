@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 OSU. All rights reserved.
 //
 
-#import "MSViewController.h"
+#import "MSHomeViewController.h"
 
-@interface MSViewController ()
+@interface MSHomeViewController ()
 
 @end
 
-@implementation MSViewController
+@implementation MSHomeViewController
 
 - (void)viewDidLoad
 {

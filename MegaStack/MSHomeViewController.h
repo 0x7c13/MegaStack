@@ -1,5 +1,5 @@
 //
-//  MSViewController.h
+//  MSHomeViewController.h
 //  MegaStack
 //
 //  Created by FlyinGeek on 2/12/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MSViewController : UIViewController
+@interface MSHomeViewController : UIViewController
 
 @end
