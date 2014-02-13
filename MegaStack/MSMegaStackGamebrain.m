@@ -8,6 +8,7 @@
 
 #import "MSMegaStackGamebrain.h"
 #import "MSBlock.h"
+#import "MSTouchDownGestureRecognizer.h"
 
 @interface MSMegaStackGamebrain () {
     
@@ -34,9 +35,8 @@
         _gameboard = gameboard;
         
         // Create and initialize a tap gesture
-        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
+        MSTouchDownGestureRecognizer *tapRecognizer = [[MSTouchDownGestureRecognizer alloc]
                                                  initWithTarget:self action:@selector(handleUserAction)];
-        tapRecognizer.numberOfTapsRequired = 1;
         [self.gameboard addGestureRecognizer:tapRecognizer];
         
         [self initSetup];

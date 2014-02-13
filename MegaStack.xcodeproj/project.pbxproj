@@ -25,6 +25,7 @@
 		F758D2B418AD5AA8005247EF /* TestFlightSDK2 in Resources */ = {isa = PBXBuildFile; fileRef = F758D2B318AD5AA8005247EF /* TestFlightSDK2 */; };
 		F758D2B618AD5B1E005247EF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F758D2B518AD5B1E005247EF /* libz.dylib */; };
 		F758D2B818AD5B33005247EF /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F758D2B718AD5B33005247EF /* libTestFlight.a */; };
+		F758D2BB18AD66B3005247EF /* MSTouchDownGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = F758D2BA18AD66B3005247EF /* MSTouchDownGestureRecognizer.m */; };
 		F7B05F1718AC599600E904BE /* MSGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B05F1618AC599600E904BE /* MSGameViewController.m */; };
 		F7B05F1A18AC5A0900E904BE /* MSMegaStackGameboard.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B05F1918AC5A0900E904BE /* MSMegaStackGameboard.m */; };
 		F7B05F1D18AC742100E904BE /* MSMegaStackGamebrain.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B05F1C18AC742100E904BE /* MSMegaStackGamebrain.m */; };
@@ -64,6 +65,8 @@
 		F758D2B318AD5AA8005247EF /* TestFlightSDK2 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TestFlightSDK2; sourceTree = "<group>"; };
 		F758D2B518AD5B1E005247EF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		F758D2B718AD5B33005247EF /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = MegaStack/TestFlightSDK2/libTestFlight.a; sourceTree = "<group>"; };
+		F758D2B918AD66B3005247EF /* MSTouchDownGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSTouchDownGestureRecognizer.h; sourceTree = "<group>"; };
+		F758D2BA18AD66B3005247EF /* MSTouchDownGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSTouchDownGestureRecognizer.m; sourceTree = "<group>"; };
 		F7B05F1518AC599600E904BE /* MSGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSGameViewController.h; sourceTree = "<group>"; };
 		F7B05F1618AC599600E904BE /* MSGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSGameViewController.m; sourceTree = "<group>"; };
 		F7B05F1818AC5A0900E904BE /* MSMegaStackGameboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMegaStackGameboard.h; sourceTree = "<group>"; };
@@ -183,6 +186,8 @@
 				F7B05F1C18AC742100E904BE /* MSMegaStackGamebrain.m */,
 				F710CF2F18AC5BA200640D00 /* MSBlock.h */,
 				F710CF3018AC5BA200640D00 /* MSBlock.m */,
+				F758D2B918AD66B3005247EF /* MSTouchDownGestureRecognizer.h */,
+				F758D2BA18AD66B3005247EF /* MSTouchDownGestureRecognizer.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -253,6 +258,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = OSU;
 				TargetAttributes = {
+					F73F6D2518AC586B00734B00 = {
+						DevelopmentTeam = 4997CKN8MT;
+					};
 					F73F6D4918AC586B00734B00 = {
 						TestTargetID = F73F6D2518AC586B00734B00;
 					};
@@ -308,6 +316,7 @@
 				F73F6D3A18AC586B00734B00 /* MSAppDelegate.m in Sources */,
 				F710CF3118AC5BA200640D00 /* MSBlock.m in Sources */,
 				F7B05F1A18AC5A0900E904BE /* MSMegaStackGameboard.m in Sources */,
+				F758D2BB18AD66B3005247EF /* MSTouchDownGestureRecognizer.m in Sources */,
 				F7B05F1D18AC742100E904BE /* MSMegaStackGamebrain.m in Sources */,
 				F7B05F1718AC599600E904BE /* MSGameViewController.m in Sources */,
 				F73F6D3618AC586B00734B00 /* main.m in Sources */,
@@ -403,7 +412,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "9BF4F9DD-DDA1-44BD-98DE-A224A8AC69FA";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -437,7 +446,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PROVISIONING_PROFILE = "9BF4F9DD-DDA1-44BD-98DE-A224A8AC69FA";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -449,6 +458,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MegaStack/MegaStack-Prefix.pch";
 				INFOPLIST_FILE = "MegaStack/MegaStack-Info.plist";
@@ -457,6 +468,7 @@
 					/Users/FlyinGeek/Developer/MegaStack/MegaStack/TestFlightSDK2,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "9BF4F9DD-DDA1-44BD-98DE-A224A8AC69FA";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -466,6 +478,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MegaStack/MegaStack-Prefix.pch";
 				INFOPLIST_FILE = "MegaStack/MegaStack-Info.plist";
@@ -474,6 +488,7 @@
 					/Users/FlyinGeek/Developer/MegaStack/MegaStack/TestFlightSDK2,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "9BF4F9DD-DDA1-44BD-98DE-A224A8AC69FA";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
