@@ -12,15 +12,20 @@
 
 @property (nonatomic) CGRect gameboardFrame;
 @property (nonatomic) CGColorRef gameboardLineColor;
-@property (nonatomic) NSInteger numberOfRows;
-@property (nonatomic) NSInteger numberOfColumns;
+@property (nonatomic, readwrite) NSInteger numberOfRows;
+@property (nonatomic, readwrite) NSInteger numberOfColumns;
 
 @end
 
 @implementation MSMegaStackGameboard
 
-- (id)initWithFrame:(CGRect)frame rows:(NSInteger)numberOfRows columns:(NSInteger)numberOfColumns gameboardColor:(UIColor *)color
+- (instancetype)initWithFrame:(CGRect)frame rows:(NSInteger)numberOfRows columns:(NSInteger)numberOfColumns gameboardColor:(UIColor *)color
 {
+    if (numberOfRows < MIN_ROWS || numberOfColumns < MIN_COLUMNS) {
+        NSLog(@"Number of rows and columns should greater or equal than minimun requirements");
+        return nil;
+    }
+    
     self = [super initWithFrame:frame];
     if (self) {
         _numberOfRows = numberOfRows;
@@ -48,7 +53,7 @@
     
         CGContextSetLineWidth(context, GAME_BOARD_LINE_WIDTH);
         CGContextMoveToPoint(context, (self.gameboardFrame.size.width/(float)self.numberOfColumns) * i + GAME_BOARD_LINE_WIDTH / 2.0, 0.0);
-        CGContextAddLineToPoint(context, (self.gameboardFrame.size.width/(float)self.numberOfColumns) * i + GAME_BOARD_LINE_WIDTH / 2.0, self.frame.size.height);
+        CGContextAddLineToPoint(context, (self.gameboardFrame.size.width/(float)self.numberOfColumns) * i + GAME_BOARD_LINE_WIDTH / 2.0, self.gameboardFrame.size.height);
         CGContextStrokePath(context);
     }
     
@@ -59,7 +64,7 @@
         
         CGContextSetLineWidth(context, GAME_BOARD_LINE_WIDTH);
         CGContextMoveToPoint(context, 0.0, (self.gameboardFrame.size.height/(float)self.numberOfRows) * i + GAME_BOARD_LINE_WIDTH / 2.0);
-        CGContextAddLineToPoint(context, self.gameboardFrame.size.height, (self.gameboardFrame.size.height/(float)self.numberOfRows) * i + GAME_BOARD_LINE_WIDTH / 2.0);
+        CGContextAddLineToPoint(context, self.gameboardFrame.size.width + GAME_BOARD_LINE_WIDTH, (self.gameboardFrame.size.height/(float)self.numberOfRows) * i + GAME_BOARD_LINE_WIDTH / 2.0);
         CGContextStrokePath(context);
     }
     
@@ -67,18 +72,18 @@
 }
 
 
-- (void)drawBlockAtRow:(NSInteger)rowIndex column:(NSInteger)columnIndex withColor:(UIColor*)color
+- (void)drawBlockUnitAtRow:(NSInteger)rowIndex column:(NSInteger)columnIndex withColor:(UIColor*)color
 {
     // check for bounds
     if (rowIndex >= self.numberOfRows || columnIndex >= self.numberOfColumns || rowIndex < 0 || columnIndex < 0) {
-        NSLog(@"Cannot draw block at (%d, %d): row index or column index out of bounds", rowIndex, columnIndex);
+        NSLog(@"Cannot draw block at (%ld, %ld): row index or column index out of bounds", rowIndex, columnIndex);
         return;
     }
     
     // check for existence
-    NSInteger tag = [NSString stringWithFormat:@"%d%d", rowIndex, columnIndex].integerValue;
+    NSInteger tag = [NSString stringWithFormat:@"%ld%ld", (rowIndex + 1)*(columnIndex + 1), (columnIndex + 1)].integerValue;
     if([self viewWithTag:tag]) {
-        NSLog(@"Cannot draw block at (%d, %d): block already exists", rowIndex, columnIndex);
+        NSLog(@"Cannot draw block at (%ld, %ld): block already exists", rowIndex, columnIndex);
         return;
     }
     
@@ -89,15 +94,26 @@
     [self addSubview:newBlock];
 }
 
-- (void)removeBlockAtRow:(NSInteger)rowIndex column:(NSInteger)columnIndex
+- (void)removeBlockUnitAtRow:(NSInteger)rowIndex column:(NSInteger)columnIndex
 {
-    NSInteger tag = [NSString stringWithFormat:@"%d%d", rowIndex, columnIndex].integerValue;
+    // check for bounds
+    if (rowIndex >= self.numberOfRows || columnIndex >= self.numberOfColumns || rowIndex < 0 || columnIndex < 0) {
+        NSLog(@"Cannot remove block at (%ld, %ld): row index or column index out of bounds", rowIndex, columnIndex);
+        return;
+    }
+    
+    NSInteger tag = [NSString stringWithFormat:@"%ld%ld", (rowIndex + 1)*(columnIndex + 1), (columnIndex + 1)].integerValue;
     UIView *targetBlock = [self viewWithTag:tag];
     if(targetBlock) {
         [targetBlock removeFromSuperview];
     } else {
-        NSLog(@"Cannot remove block at (%d, %d): block doesn't exists", rowIndex, columnIndex);
+        NSLog(@"Cannot remove block at (%ld, %ld): block doesn't exists", rowIndex, columnIndex);
     }
+}
+
+- (void)reset
+{
+    [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 }
 
 @end

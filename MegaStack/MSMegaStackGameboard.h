@@ -10,11 +10,27 @@
 
 #define GAME_BOARD_LINE_WIDTH 2.0
 
+// minimum requirements of number of rows and columns
+#define MIN_COLUMNS 5
+#define MIN_ROWS 5
+
 @interface MSMegaStackGameboard : UIView
 
-- (id)initWithFrame:(CGRect)frame rows:(NSInteger)numberOfRows columns:(NSInteger)numberOfColumns gameboardColor:(UIColor *)color;
+@property (nonatomic, readonly) NSInteger numberOfRows;
+@property (nonatomic, readonly) NSInteger numberOfColumns;
 
-- (void)drawBlockAtRow:(NSInteger)rowIndex column:(NSInteger)columnIndex withColor:(UIColor *)color;
-- (void)removeBlockAtRow:(NSInteger)rowIndex column:(NSInteger)columnIndex;
+- (instancetype)initWithFrame:(CGRect)frame
+                         rows:(NSInteger)numberOfRows
+                      columns:(NSInteger)numberOfColumns
+               gameboardColor:(UIColor *)color;
+
+- (void)drawBlockUnitAtRow:(NSInteger)rowIndex
+                column:(NSInteger)columnIndex
+             withColor:(UIColor *)color;
+
+- (void)removeBlockUnitAtRow:(NSInteger)rowIndex
+                  column:(NSInteger)columnIndex;
+
+- (void)reset;
 
 @end

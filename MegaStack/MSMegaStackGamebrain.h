@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "MSMegaStackGameboard.h"
 
+#define INIT_BLOCK_LENGTH 3
+
 @interface MSMegaStackGamebrain : NSObject
 
 - (instancetype)initWithGameboard:(MSMegaStackGameboard *)gameboard;

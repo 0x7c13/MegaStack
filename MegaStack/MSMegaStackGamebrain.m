@@ -7,6 +7,7 @@
 //
 
 #import "MSMegaStackGamebrain.h"
+#import "MSBlock.h"
 
 struct POINTER {
     NSInteger rowIndex;
@@ -16,12 +17,15 @@ struct POINTER {
 @interface MSMegaStackGamebrain () {
     BOOL gameIsOver;
     BOOL gameStarted;
+    BOOL userInteractionEnabled;
+    BOOL levelUp;
     float updateInterval;
     NSInteger currentLevel;
     NSTimer *gameTimer;
 }
 
 @property (nonatomic, strong) MSMegaStackGameboard *gameboard;
+@property (nonatomic, strong) NSMutableArray *blocks;
 
 @end
 
@@ -47,16 +51,26 @@ struct POINTER {
 {
     gameIsOver = NO;
     gameStarted = NO;
-    updateInterval = 0.1f;
+    userInteractionEnabled = NO;
+    levelUp = NO;
+    updateInterval = 0.2f;
     pointer.columnIndex = 0;
     pointer.rowIndex = 0;
     currentLevel = 0;
+    _blocks = [[NSMutableArray alloc]init];
 }
 
 - (void)startGame
 {
     if (gameStarted) return;
+
+    NSInteger length = 2 * (((self.gameboard.numberOfRows - currentLevel)/(float)self.gameboard.numberOfRows) + 0.1) + 1;
+    MSBlock *initBlock = [[MSBlock alloc]initWithRow:currentLevel++ column:self.gameboard.numberOfColumns/2 - length/2 + 1 length:length gameboard:self.gameboard];
+
+    [self.blocks addObject:initBlock];
+    
     gameStarted = YES;
+    userInteractionEnabled = YES;
     gameTimer = [NSTimer scheduledTimerWithTimeInterval:updateInterval
                                      target:self
                                    selector:@selector(update:)
@@ -68,13 +82,11 @@ struct POINTER {
 {
     [gameTimer invalidate];
     [self.gameboard reset];
+    [self.blocks removeAllObjects];
     [self initSetup];
 }
 
-- (void)draw
-{
-    [self.gameboard drawBlockAtRow:pointer.rowIndex column:pointer.columnIndex withColor:[UIColor blueColor]];
-}
+
 
 - (void)update:(NSTimer *)timer
 {
@@ -84,24 +96,48 @@ struct POINTER {
         return;
     }
     
-    [self draw];
-    
-    if (pointer.columnIndex == self.gameboard.numberOfColumns - 1) {
-        pointer.columnIndex = 0;
-        pointer.rowIndex++;
-        if (pointer.rowIndex == self.gameboard.numberOfRows) gameIsOver = YES;
+    if (levelUp) {
+        [timer invalidate];
+        levelUp = NO;
+        
+        if (currentLevel == self.gameboard.numberOfRows) {
+            [self resetGame];
+            return;
+        }
+        
+        NSInteger length = 2 * (((self.gameboard.numberOfRows - currentLevel)/(float)self.gameboard.numberOfRows) + 0.1) + 1;
+        [self.blocks addObject:[[MSBlock alloc]initWithRow:currentLevel++ column:self.gameboard.numberOfColumns/2 - length/2 + 1 length:length gameboard:self.gameboard]];
+        userInteractionEnabled = YES;
+        
+        gameTimer = [NSTimer scheduledTimerWithTimeInterval:timer.timeInterval * 0.9
+                                                     target:self
+                                                   selector:@selector(update:)
+                                                   userInfo:nil
+                                                    repeats:YES];
     }
-    else {
-        pointer.columnIndex++;
+    
+    for (MSBlock *block in self.blocks) {
+        if ([block isInActiveState]) [block update];
+    }
+    
+    for (MSBlock *block in self.blocks) {
+        if ([block isInActiveState]) [block draw];
     }
 
 }
 
 -(void)handleUserAction
 {
-    if (!gameStarted) return;
-
-    NSLog(@"user did tap on gameboard");
+    if (!gameStarted || !userInteractionEnabled) return;
+    
+    for (MSBlock *block in self.blocks) {
+        if ([block isInActiveState]) {
+            [block stop];
+            userInteractionEnabled = NO;
+            levelUp = YES;
+        }
+    }
+    
 }
 
 @end

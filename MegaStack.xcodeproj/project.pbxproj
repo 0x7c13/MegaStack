@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F710CF3118AC5BA200640D00 /* MSBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = F710CF3018AC5BA200640D00 /* MSBlock.m */; };
 		F73F6D2A18AC586B00734B00 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F73F6D2918AC586B00734B00 /* Foundation.framework */; };
 		F73F6D2C18AC586B00734B00 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F73F6D2B18AC586B00734B00 /* CoreGraphics.framework */; };
 		F73F6D2E18AC586B00734B00 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F73F6D2D18AC586B00734B00 /* UIKit.framework */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F710CF2F18AC5BA200640D00 /* MSBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSBlock.h; sourceTree = "<group>"; };
+		F710CF3018AC5BA200640D00 /* MSBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSBlock.m; sourceTree = "<group>"; };
 		F73F6D2618AC586B00734B00 /* MegaStack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MegaStack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F73F6D2918AC586B00734B00 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F73F6D2B18AC586B00734B00 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -170,6 +173,8 @@
 				F7B05F1918AC5A0900E904BE /* MSMegaStackGameboard.m */,
 				F7B05F1B18AC742100E904BE /* MSMegaStackGamebrain.h */,
 				F7B05F1C18AC742100E904BE /* MSMegaStackGamebrain.m */,
+				F710CF2F18AC5BA200640D00 /* MSBlock.h */,
+				F710CF3018AC5BA200640D00 /* MSBlock.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -294,6 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F73F6D3A18AC586B00734B00 /* MSAppDelegate.m in Sources */,
+				F710CF3118AC5BA200640D00 /* MSBlock.m in Sources */,
 				F7B05F1A18AC5A0900E904BE /* MSMegaStackGameboard.m in Sources */,
 				F73F6D4318AC586B00734B00 /* MSHomeViewController.m in Sources */,
 				F7B05F1D18AC742100E904BE /* MSMegaStackGamebrain.m in Sources */,
