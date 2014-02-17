@@ -114,17 +114,20 @@
     
     if (self.row > 0) {
         self.row--;
+        BOOL canFall = NO;
         for (int i = 0; i < self.length; i++)
         {
             if (self.isMoveable[i]) {
                 if ([self.gameboard blockUnitExistsAtRow:self.row column:self.column + i]) {
                     self.isMoveable[i] = @0;
                 } else {
+                    canFall = YES;
                     [self.gameboard removeBlockUnitAtRow:self.row + 1 column:self.column + i];
                     [self.gameboard drawBlockUnitAtRow:self.row column:self.column + i withColor:self.color];
                 }
             }
         }
+        if (!canFall) { NSLog(@"cannot fall"); self.isDead = YES; }
     } else {
         self.isDead = YES;
     }

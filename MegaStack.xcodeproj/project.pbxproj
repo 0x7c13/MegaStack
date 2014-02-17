@@ -136,6 +136,9 @@
 		F73F6D2F18AC586B00734B00 /* MegaStack */ = {
 			isa = PBXGroup;
 			children = (
+				F751226818B1C30C004E9096 /* GestureRecognizer */,
+				F751226718B1C2F5004E9096 /* Gamebrain */,
+				F751226618B1C2E6004E9096 /* Gameboard */,
 				F7B05F1218AC58DA00E904BE /* Models */,
 				F7B05F1318AC58E200E904BE /* ViewControllers */,
 				F7B05F1418AC58FD00E904BE /* Storyboards */,
@@ -177,17 +180,38 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		F7B05F1218AC58DA00E904BE /* Models */ = {
+		F751226618B1C2E6004E9096 /* Gameboard */ = {
 			isa = PBXGroup;
 			children = (
 				F7B05F1818AC5A0900E904BE /* MSMegaStackGameboard.h */,
 				F7B05F1918AC5A0900E904BE /* MSMegaStackGameboard.m */,
+			);
+			name = Gameboard;
+			sourceTree = "<group>";
+		};
+		F751226718B1C2F5004E9096 /* Gamebrain */ = {
+			isa = PBXGroup;
+			children = (
 				F7B05F1B18AC742100E904BE /* MSMegaStackGamebrain.h */,
 				F7B05F1C18AC742100E904BE /* MSMegaStackGamebrain.m */,
-				F710CF2F18AC5BA200640D00 /* MSBlock.h */,
-				F710CF3018AC5BA200640D00 /* MSBlock.m */,
+			);
+			name = Gamebrain;
+			sourceTree = "<group>";
+		};
+		F751226818B1C30C004E9096 /* GestureRecognizer */ = {
+			isa = PBXGroup;
+			children = (
 				F758D2B918AD66B3005247EF /* MSTouchDownGestureRecognizer.h */,
 				F758D2BA18AD66B3005247EF /* MSTouchDownGestureRecognizer.m */,
+			);
+			name = GestureRecognizer;
+			sourceTree = "<group>";
+		};
+		F7B05F1218AC58DA00E904BE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F710CF2F18AC5BA200640D00 /* MSBlock.h */,
+				F710CF3018AC5BA200640D00 /* MSBlock.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
