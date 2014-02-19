@@ -8,22 +8,24 @@
 
 #import <UIKit/UIKit.h>
 
-#define GAME_BOARD_LINE_WIDTH 2.0
-
-// minimum requirements of number of rows and columns
-#define MIN_COLUMNS 5
-#define MIN_ROWS 5
+#define kGameboardLineWidth 2.0
+/* minimum requirements of number of rows and columns */
+#define kMinimunNumberOfColumns 5
+#define kMinimunNumberOfRows 5
 
 @interface MSMegaStackGameboard : UIView
 
 @property (nonatomic, readonly) NSInteger numberOfRows;
 @property (nonatomic, readonly) NSInteger numberOfColumns;
 
+- (instancetype) init __attribute__((unavailable("init not available")));
 - (instancetype)initWithFrame:(CGRect)frame
                          rows:(NSInteger)numberOfRows
                       columns:(NSInteger)numberOfColumns
                gameboardColor:(UIColor *)color;
 
+
+- (void)updateByVerticalOffset:(NSInteger)offset;
 
 - (void)drawBlockUnitAtRow:(NSInteger)rowIndex
                 column:(NSInteger)columnIndex

@@ -7,8 +7,10 @@
 //
 
 #import "MSMegaStackGamebrain.h"
-#import "MSBlock.h"
 #import "MSTouchDownGestureRecognizer.h"
+
+#define kDebugModeOn 0
+#define kAnimationTimeInterval 0.15f
 
 @interface MSMegaStackGamebrain () {
     
@@ -16,24 +18,26 @@
     BOOL gameStarted;
     BOOL userInteractionEnabled;
     BOOL levelUp;
-    float updateInterval;
+    NSInteger score;
     NSInteger currentLevel;
     NSTimer *gameTimer;
     NSTimer *animationTimer;
 }
 
 @property (nonatomic, strong) MSMegaStackGameboard *gameboard;
-@property (nonatomic, strong) MSBlock *targetBlock;
+@property (nonatomic, strong) MSBlock *activeBlock;
+@property (nonatomic, strong) MSLevelManager *levelManager;
 
 @end
 
 @implementation MSMegaStackGamebrain
 
 - (instancetype)initWithGameboard:(MSMegaStackGameboard *)gameboard
+                         gameMode:(MSGameMode)mode
 {
     if (self = [super init]) {
         _gameboard = gameboard;
-        
+        _levelManager = [[MSLevelManager alloc] initWithGameMode:mode];
         // Create and initialize a tap gesture
         MSTouchDownGestureRecognizer *tapRecognizer = [[MSTouchDownGestureRecognizer alloc]
                                                  initWithTarget:self action:@selector(handleUserAction)];
@@ -50,22 +54,26 @@
     gameStarted = NO;
     userInteractionEnabled = NO;
     levelUp = NO;
-    updateInterval = INIT_MOVING_SPEED;
     currentLevel = 0;
-    _targetBlock = nil;
+    score = 0;
+    _activeBlock = nil;
 }
 
 - (void)startGame
 {
     if (gameStarted) return;
 
-    NSInteger length = INIT_BLOCK_LENGTH;
-    self.targetBlock = [[MSBlock alloc]initWithRow:currentLevel++ column:self.gameboard.numberOfColumns/2 - length/2 length:length color:[UIColor blueColor] gameboard:self.gameboard];
+    if ([self.delegate respondsToSelector:@selector(scoreDidUpdate:)]) {
+        [self.delegate scoreDidUpdate:0];
+    }
+    
+    NSInteger length = [self.levelManager lengthOfBlockAtLevel:currentLevel];
+    self.activeBlock = [[MSBlock alloc]initWithRow:currentLevel column:0 length:length color:[UIColor blueColor] gameboard:self.gameboard];
 
     
     gameStarted = YES;
     userInteractionEnabled = YES;
-    gameTimer = [NSTimer scheduledTimerWithTimeInterval:updateInterval
+    gameTimer = [NSTimer scheduledTimerWithTimeInterval:[self.levelManager timeIntervalAtLevel:currentLevel]
                                      target:self
                                    selector:@selector(update:)
                                    userInfo:nil
@@ -94,49 +102,62 @@
         [timer invalidate];
         levelUp = NO;
         
-        if (currentLevel == self.gameboard.numberOfRows) {
-            [self resetGame];
-            return;
+        score += [MSGameScoreManager scoreWithExistingRounds:self.activeBlock.existingRounds fallingPoints:self.activeBlock.fallingPoint];
+        if ([self.delegate respondsToSelector:@selector(scoreDidUpdate:)]) {
+            [self.delegate scoreDidUpdate:score];
+        }
+
+        currentLevel++;
+        
+        NSInteger rowIndex = currentLevel;
+
+        if (currentLevel > (int)(2/3.0 * self.gameboard.numberOfRows)) {
+            [self.gameboard updateByVerticalOffset:-1];
+            rowIndex = (int)(2/3.0 * self.gameboard.numberOfRows);
         }
         
-        NSInteger length = 2 * (((self.gameboard.numberOfRows - currentLevel)/(float)self.gameboard.numberOfRows) + 0.1) + 1;
-        self.targetBlock = [[MSBlock alloc]initWithRow:currentLevel++ column:self.gameboard.numberOfColumns/2 - length/2 + 1 length:length color:[UIColor blueColor] gameboard:self.gameboard];
+        self.activeBlock = [[MSBlock alloc]initWithRow:rowIndex column:(currentLevel % 2 == 0)? 0: self.gameboard.numberOfColumns - [self.levelManager lengthOfBlockAtLevel:currentLevel] length:[self.levelManager lengthOfBlockAtLevel:currentLevel] color:[UIColor blueColor] gameboard:self.gameboard];
         
         userInteractionEnabled = YES;
         
-        gameTimer = [NSTimer scheduledTimerWithTimeInterval:timer.timeInterval * 0.9
+        gameTimer = [NSTimer scheduledTimerWithTimeInterval:[self.levelManager timeIntervalAtLevel:currentLevel]
                                                      target:self
                                                    selector:@selector(update:)
                                                    userInfo:nil
                                                     repeats:YES];
+    } else {
+        if (self.activeBlock.isInActiveState) {
+            [self.activeBlock update];
+            [self.activeBlock draw];
+        }
     }
-    
-    if (self.targetBlock.isInActiveState) {
-        [self.targetBlock update];
-        [self.targetBlock draw];
-    }
-
+#if kDebugModeOn
+    NSLog(@"Updated");
+#endif
 }
 
 - (void)animation:(NSTimer *)timer
 {
-    if (self.targetBlock.isDead) {
+    if (self.activeBlock.isDead) {
         [timer invalidate];
         levelUp = YES;
     } else {
-        [self.targetBlock fall];
+        [self.activeBlock fall];
     }
+#if kDebugModeOn
+    NSLog(@"Animated");
+#endif
 }
 
 -(void)handleUserAction
 {
     if (!gameStarted || !userInteractionEnabled) return;
     
-    if (self.targetBlock.isInActiveState) {
+    if (self.activeBlock.isInActiveState) {
         
-        if ([self.targetBlock setToFallingState]) {
+        if ([self.activeBlock setToFallingState]) {
             
-            animationTimer = [NSTimer scheduledTimerWithTimeInterval:updateInterval
+            animationTimer = [NSTimer scheduledTimerWithTimeInterval:kAnimationTimeInterval
                                                               target:self
                                                             selector:@selector(animation:)
                                                             userInfo:nil

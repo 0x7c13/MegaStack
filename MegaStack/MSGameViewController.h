@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MSMegaStackGameBoard.h"
+#import "MSMegaStackGamebrain.h"
 
-@interface MSGameViewController : UIViewController
+@interface MSGameViewController : UIViewController <MSMegaStackGamebrainDelegate>
 
 @end

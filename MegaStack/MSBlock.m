@@ -8,6 +8,9 @@
 
 #import "MSBlock.h"
 
+#define kDebugModeOn 0
+
+
 @interface MSBlock () {
     BOOL isMovingLeft;
     BOOL isInFallingState;
@@ -16,6 +19,8 @@
 @property (nonatomic, readwrite) NSInteger row;
 @property (nonatomic, readwrite) NSInteger column;
 @property (nonatomic, readwrite) NSInteger length;
+@property (nonatomic, readwrite) NSInteger existingRounds;
+@property (nonatomic, readwrite) NSInteger fallingPoint;
 @property (nonatomic, readwrite) UIColor *color;
 @property (nonatomic, readwrite) BOOL isInActiveState;
 @property (nonatomic, readwrite) BOOL isDead;
@@ -38,7 +43,7 @@
         column + length - 1 >= gameboard.numberOfColumns ||
         length <= 0 ) {
         
-        NSLog(@"Block cannot be created: invalid index of rows, columns or length");
+        NSLog(@"Block cannot be created: invalid index of rows(%d), columns(%d) or length(%d)", (int)row, (int)column, (int)length);
         return nil;
     }
     
@@ -48,6 +53,8 @@
         _length = length;
         _color = color;
         _gameboard = gameboard;
+        _existingRounds = 0;
+        _fallingPoint = 0;
         _isInActiveState = YES;
         _isDead = NO;
         isMovingLeft = YES;
@@ -65,8 +72,14 @@
 
 - (void)update
 {
-    if (self.column == 0) isMovingLeft = NO;
-    if (self.column + self.length == self.gameboard.numberOfColumns) isMovingLeft = YES;
+    if (self.column == 0) {
+        isMovingLeft = NO;
+        self.existingRounds++;
+    }
+    if (self.column + self.length == self.gameboard.numberOfColumns) {
+        isMovingLeft = YES;
+        self.existingRounds++;
+    }
     
     if (isMovingLeft) {
         self.column --;
@@ -105,6 +118,7 @@
             movableCounter ++;
         }
     }
+    self.fallingPoint = movableCounter;
     return movableCounter > 0;
 }
 
@@ -127,7 +141,12 @@
                 }
             }
         }
-        if (!canFall) { NSLog(@"cannot fall"); self.isDead = YES; }
+        if (!canFall) {
+#if kDebugModeOn
+            NSLog(@"cannot fall");
+#endif
+            self.isDead = YES;
+        }
     } else {
         self.isDead = YES;
     }

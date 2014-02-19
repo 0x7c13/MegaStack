@@ -8,17 +8,32 @@
 
 #import <Foundation/Foundation.h>
 #import "MSMegaStackGameboard.h"
+#import "MSBlock.h"
+#import "MSLevelManager.h"
+#import "MSTouchDownGestureRecognizer.h"
+#import "MSGameScoreManager.h"
 
-#define INIT_BLOCK_LENGTH 3
-#define INIT_MOVING_SPEED 0.2f
+@protocol MSMegaStackGamebrainDelegate;
 
 @interface MSMegaStackGamebrain : NSObject
 
-- (instancetype)initWithGameboard:(MSMegaStackGameboard *)gameboard;
+@property (nonatomic, weak) id<MSMegaStackGamebrainDelegate> delegate;
+
+- (instancetype) init __attribute__((unavailable("init not available")));
+
+- (instancetype)initWithGameboard:(MSMegaStackGameboard *)gameboard
+                         gameMode:(MSGameMode)mode;
 
 - (void)startGame;
 - (void)resetGame;
 
 - (void)handleUserAction;
+
+@end
+
+@protocol MSMegaStackGamebrainDelegate <NSObject>
+
+@optional
+- (void)scoreDidUpdate:(NSInteger)score;
 
 @end

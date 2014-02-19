@@ -22,7 +22,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame rows:(NSInteger)numberOfRows columns:(NSInteger)numberOfColumns gameboardColor:(UIColor *)color
 {
-    if (numberOfRows < MIN_ROWS || numberOfColumns < MIN_COLUMNS) {
+    if (numberOfRows < kMinimunNumberOfRows || numberOfColumns < kMinimunNumberOfColumns) {
         NSLog(@"Number of rows and columns should greater or equal than minimun requirements");
         return nil;
     }
@@ -36,13 +36,13 @@
         _display = [[NSMutableArray alloc] init];
         
         // set actual frame
-        _gameboardFrame = CGRectMake(GAME_BOARD_LINE_WIDTH / 2.0, GAME_BOARD_LINE_WIDTH / 2.0, frame.size.width - GAME_BOARD_LINE_WIDTH, frame.size.height - GAME_BOARD_LINE_WIDTH);
+        _gameboardFrame = CGRectMake(kGameboardLineWidth / 2.0, kGameboardLineWidth / 2.0, frame.size.width - kGameboardLineWidth, frame.size.height - kGameboardLineWidth);
         
         // init display
         for (int rowIndex = 0; rowIndex < numberOfRows; rowIndex++) {
             NSMutableArray *columns = [[NSMutableArray alloc]init];
             for (int columnIndex = 0; columnIndex < numberOfColumns; columnIndex++) {
-                UIView *blockUnit = [[UIView alloc]initWithFrame:CGRectMake((self.gameboardFrame.size.width / self.numberOfColumns) * columnIndex + GAME_BOARD_LINE_WIDTH, (self.gameboardFrame.size.height / self.numberOfRows) * (self.numberOfRows - rowIndex - 1) + GAME_BOARD_LINE_WIDTH, self.gameboardFrame.size.width / self.numberOfColumns - GAME_BOARD_LINE_WIDTH, self.gameboardFrame.size.height / self.numberOfRows - GAME_BOARD_LINE_WIDTH)];
+                UIView *blockUnit = [[UIView alloc]initWithFrame:CGRectMake((self.gameboardFrame.size.width / self.numberOfColumns) * columnIndex + kGameboardLineWidth, (self.gameboardFrame.size.height / self.numberOfRows) * (self.numberOfRows - rowIndex - 1) + kGameboardLineWidth, self.gameboardFrame.size.width / self.numberOfColumns - kGameboardLineWidth, self.gameboardFrame.size.height / self.numberOfRows - kGameboardLineWidth)];
                 blockUnit.backgroundColor = [UIColor clearColor];
                 [self addSubview:blockUnit];
                 [columns addObject:blockUnit];
@@ -66,9 +66,9 @@
         CGContextRef context = UIGraphicsGetCurrentContext();
         CGContextSetStrokeColorWithColor(context, self.gameboardLineColor);
     
-        CGContextSetLineWidth(context, GAME_BOARD_LINE_WIDTH);
-        CGContextMoveToPoint(context, (self.gameboardFrame.size.width/(float)self.numberOfColumns) * i + GAME_BOARD_LINE_WIDTH / 2.0, 0.0);
-        CGContextAddLineToPoint(context, (self.gameboardFrame.size.width/(float)self.numberOfColumns) * i + GAME_BOARD_LINE_WIDTH / 2.0, self.gameboardFrame.size.height);
+        CGContextSetLineWidth(context, kGameboardLineWidth);
+        CGContextMoveToPoint(context, (self.gameboardFrame.size.width/(float)self.numberOfColumns) * i + kGameboardLineWidth / 2.0, 0.0);
+        CGContextAddLineToPoint(context, (self.gameboardFrame.size.width/(float)self.numberOfColumns) * i + kGameboardLineWidth / 2.0, self.gameboardFrame.size.height);
         CGContextStrokePath(context);
     }
     
@@ -77,9 +77,9 @@
         CGContextRef context = UIGraphicsGetCurrentContext();
         CGContextSetStrokeColorWithColor(context, self.gameboardLineColor);
         
-        CGContextSetLineWidth(context, GAME_BOARD_LINE_WIDTH);
-        CGContextMoveToPoint(context, 0.0, (self.gameboardFrame.size.height/(float)self.numberOfRows) * i + GAME_BOARD_LINE_WIDTH / 2.0);
-        CGContextAddLineToPoint(context, self.gameboardFrame.size.width + GAME_BOARD_LINE_WIDTH, (self.gameboardFrame.size.height/(float)self.numberOfRows) * i + GAME_BOARD_LINE_WIDTH / 2.0);
+        CGContextSetLineWidth(context, kGameboardLineWidth);
+        CGContextMoveToPoint(context, 0.0, (self.gameboardFrame.size.height/(float)self.numberOfRows) * i + kGameboardLineWidth / 2.0);
+        CGContextAddLineToPoint(context, self.gameboardFrame.size.width + kGameboardLineWidth, (self.gameboardFrame.size.height/(float)self.numberOfRows) * i + kGameboardLineWidth / 2.0);
         CGContextStrokePath(context);
     }
     
@@ -119,6 +119,51 @@
     }
     
     ((UIView *)self.display[rowIndex][columnIndex]).backgroundColor = [UIColor clearColor];
+}
+
+- (void)updateByVerticalOffset:(NSInteger)offset
+{
+    if (offset == 0) return;
+
+    if (offset > 0) {
+        for (NSInteger rowIndex = self.numberOfRows - 1; rowIndex >= self.numberOfRows - offset; rowIndex--) {
+            for (NSInteger columnIndex = 0; columnIndex < self.numberOfColumns; columnIndex++) {
+                if ([self blockUnitExistsAtRow:rowIndex column:columnIndex]) {
+                    [self removeBlockUnitAtRow:rowIndex column:columnIndex];
+                }
+            }
+        }
+        for (NSInteger rowIndex = self.numberOfRows - offset - 1; rowIndex >= 0; rowIndex--) {
+            for (NSInteger columnIndex = 0; columnIndex < self.numberOfColumns; columnIndex++) {
+                if ([self blockUnitExistsAtRow:rowIndex column:columnIndex]) {
+                    UIColor *blockColor = ((UIView *)self.display[rowIndex][columnIndex]).backgroundColor;
+                    [self removeBlockUnitAtRow:rowIndex column:columnIndex];
+                    if (![self blockUnitExistsAtRow:rowIndex + offset column:columnIndex]) {
+                        [self drawBlockUnitAtRow:rowIndex + offset column:columnIndex withColor:blockColor];
+                    }
+                }
+            }
+        }
+    } else {
+        for (NSInteger rowIndex = 0; rowIndex < offset; rowIndex++) {
+            for (NSInteger columnIndex = 0; columnIndex < self.numberOfColumns; columnIndex++) {
+                if ([self blockUnitExistsAtRow:rowIndex column:columnIndex]) {
+                    [self removeBlockUnitAtRow:rowIndex column:columnIndex];
+                }
+            }
+        }
+        for (NSInteger rowIndex = -offset; rowIndex < self.numberOfRows; rowIndex++) {
+            for (NSInteger columnIndex = 0; columnIndex < self.numberOfColumns; columnIndex++) {
+                if ([self blockUnitExistsAtRow:rowIndex column:columnIndex]) {
+                    UIColor *blockColor = ((UIView *)self.display[rowIndex][columnIndex]).backgroundColor;
+                    [self removeBlockUnitAtRow:rowIndex column:columnIndex];
+                    if (![self blockUnitExistsAtRow:rowIndex + offset column:columnIndex]) {
+                        [self drawBlockUnitAtRow:rowIndex + offset column:columnIndex withColor:blockColor];
+                    }
+                }
+            }
+        }
+    }
 }
 
 - (BOOL)blockUnitExistsAtRow:(NSInteger)rowIndex

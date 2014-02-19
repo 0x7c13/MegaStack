@@ -14,6 +14,8 @@
 @property (nonatomic, readonly) NSInteger row;
 @property (nonatomic, readonly) NSInteger column;
 @property (nonatomic, readonly) NSInteger length;
+@property (nonatomic, readonly) NSInteger existingRounds;
+@property (nonatomic, readonly) NSInteger fallingPoint;
 @property (nonatomic, readonly) UIColor *color;
 
 @property (nonatomic, readonly) BOOL isInActiveState;

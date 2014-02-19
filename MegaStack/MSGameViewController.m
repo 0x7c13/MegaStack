@@ -7,12 +7,11 @@
 //
 
 #import "MSGameViewController.h"
-#import "MSMegaStackGameBoard.h"
-#import "MSMegaStackGamebrain.h"
 
 @interface MSGameViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *gameboardView;
+@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (strong, nonatomic) MSMegaStackGamebrain *gamebrain;
 
 
@@ -36,10 +35,10 @@
 
     [self setNeedsStatusBarAppearanceUpdate];
     
-    MSMegaStackGameboard *gameboard = [[MSMegaStackGameboard alloc]initWithFrame:self.gameboardView.frame rows:11 columns:7 gameboardColor:[UIColor grayColor]];
+    MSMegaStackGameboard *gameboard = [[MSMegaStackGameboard alloc]initWithFrame:self.gameboardView.frame rows:16 columns:12 gameboardColor:[UIColor grayColor]];
     [self.view addSubview:gameboard];
-    _gamebrain = [[MSMegaStackGamebrain alloc] initWithGameboard:gameboard];
-    
+    _gamebrain = [[MSMegaStackGamebrain alloc] initWithGameboard:gameboard gameMode:MSGameModeCrazy];
+    _gamebrain.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -61,5 +60,9 @@
     return UIStatusBarStyleLightContent;
 }
 
+-(void)scoreDidUpdate:(NSInteger)score
+{
+    self.scoreLabel.text = [NSString stringWithFormat:@"%d", (int)score];
+}
 
 @end
